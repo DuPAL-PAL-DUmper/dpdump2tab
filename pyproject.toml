@@ -17,7 +17,7 @@ classifiers = [
 ]
 requires-python = ">=3.12"
 dependencies = [
-    "dpdumperlib >= 0.0.1"
+    "dpdumperlib >= 0.0.2"
 ]
 
 [project.scripts]

@@ -8,8 +8,7 @@ from dpdump2eqn import __name__, __version__
 
 from dpdumperlib.ic.ic_definition import ICDefinition
 from dpdumperlib.ic.ic_loader import ICLoader
-
-from dpdump2eqn.infile_utilities import load_file_data
+import dpdumperlib.io.file_utils as FileUtils
 
 _LOGGER: logging.Logger = logging.getLogger(__name__)
 
@@ -52,7 +51,7 @@ def cli() -> int:
     bytes_per_entry: int = -(len(ic_definition.data) // -8) # Calculate how many bytes are needed for a data entry
     addr_combs: int = 1 << len(ic_definition.address) # Calculate the number of addresses that this IC supports
 
-    data: List[int] = load_file_data(args.infile, bytes_per_entry)
+    data: List[int] = FileUtils.load_file_data(args.infile, bytes_per_entry)
 
     if (d_len := len(data)) != addr_combs:
         raise ValueError(f'Input file has {d_len} entries, but {addr_combs} were expected!')
