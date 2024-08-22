@@ -5,6 +5,9 @@ import logging
 
 from dpdump2eqn import __name__, __version__
 
+from dpdumperlib.ic.ic_definition import ICDefinition
+from dpdumperlib.ic.ic_loader import ICLoader
+
 _LOGGER: logging.Logger = logging.getLogger(__name__)
 
 def _build_argsparser() -> argparse.ArgumentParser:
@@ -29,4 +32,16 @@ def _build_argsparser() -> argparse.ArgumentParser:
     return parser
 
 def cli() -> int:
+    args = _build_argsparser().parse_args()
+
+    # Prepare the logger
+    debug_level: int = logging.ERROR
+    if args.verbose > 1:
+        debug_level = logging.DEBUG
+    elif args.verbose > 0:
+        debug_level = logging.INFO
+    logging.basicConfig(level=debug_level)
+
+    ic_definition: ICDefinition = ICLoader.extract_definition_from_file(args.definition)
+
     return 0
