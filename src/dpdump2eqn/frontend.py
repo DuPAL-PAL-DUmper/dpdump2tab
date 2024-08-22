@@ -56,4 +56,7 @@ def cli() -> int:
     if (d_len := len(data)) != addr_combs:
         raise ValueError(f'Input file has {d_len} entries, but {addr_combs} were expected!')
 
-    return 0
+    # TODO: Generate the equations and print them
+
+    _LOGGER.info('Quitting.')
+    return 1 
