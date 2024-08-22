@@ -1,2 +1,1 @@
-pyserial>=3.5
 dpdumperlib>=0.0.1
