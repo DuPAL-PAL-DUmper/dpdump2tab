@@ -2,11 +2,14 @@
 
 import argparse
 import logging
+from typing import List
 
 from dpdump2eqn import __name__, __version__
 
 from dpdumperlib.ic.ic_definition import ICDefinition
 from dpdumperlib.ic.ic_loader import ICLoader
+
+from dpdump2eqn.infile_utilities import load_file_data
 
 _LOGGER: logging.Logger = logging.getLogger(__name__)
 
@@ -42,6 +45,16 @@ def cli() -> int:
         debug_level = logging.INFO
     logging.basicConfig(level=debug_level)
 
+    _LOGGER.info(f'Reading definition from {args.definition} and input data from {args.infile}')
+
     ic_definition: ICDefinition = ICLoader.extract_definition_from_file(args.definition)
+    
+    bytes_per_entry: int = -(len(ic_definition.data) // -8) # Calculate how many bytes are needed for a data entry
+    addr_combs: int = 1 << len(ic_definition.address) # Calculate the number of addresses that this IC supports
+
+    data: List[int] = load_file_data(args.infile, bytes_per_entry)
+
+    if (d_len := len(data)) != addr_combs:
+        raise ValueError(f'Input file has {d_len} entries, but {addr_combs} were expected!')
 
     return 0
