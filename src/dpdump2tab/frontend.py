@@ -10,6 +10,8 @@ from dpdumperlib.ic.ic_definition import ICDefinition
 from dpdumperlib.ic.ic_loader import ICLoader
 import dpdumperlib.io.file_utils as FileUtils
 
+import dpdump2tab.ttable_tools as TTableTools
+
 _LOGGER: logging.Logger = logging.getLogger(__name__)
 
 def _build_argsparser() -> argparse.ArgumentParser:
@@ -65,6 +67,13 @@ def cli() -> int:
 
     if (d_len := len(data)) != addr_combs:
         raise ValueError(f'Input file has {d_len} entries, but {addr_combs} were expected!')
+
+    if args.invert:
+        data = [(~d & ((1 << len(ic_definition.data)) - 1)) for d in data]
+
+    with open(args.outfile, 'wb') as outf:
+        TTableTools.write_truth_table_header(ic_definition, outf)
+        TTableTools.write_truth_table(ic_definition, data, outf)
 
     _LOGGER.info('Quitting.')
     return 1 
