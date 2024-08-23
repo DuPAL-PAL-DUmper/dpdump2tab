@@ -31,6 +31,11 @@ def _build_argsparser() -> argparse.ArgumentParser:
                         help='Path to the file binary data to be converted',
                         required=True)
     
+    parser.add_argument('-o', '--outfile',
+                        metavar='table output file',
+                        help='Path to the destination file that will contain the generated table',
+                        required=True)
+    
     parser.add_argument('--invert',
                         action='store_true',
                         default=False,
