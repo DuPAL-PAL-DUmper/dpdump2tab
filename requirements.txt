@@ -1,1 +1,2 @@
 dpdumperlib>=0.0.2
+logicmin>=0.4.0
