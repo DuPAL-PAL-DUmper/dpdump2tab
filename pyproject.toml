@@ -3,9 +3,9 @@ requires = ["setuptools", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "dpdump2eqn"
+name = "dpdump2tab"
 version = "0.0.1"
-description = "Convert dumps made with dpdumper into logic equations"
+description = "Convert dumps made with dpdumper into truth tables compatible with espresso"
 authors = [
    { name = "Fabio Battaglia", email = "hkzlabnet@gmail.com" }
 ]
@@ -17,17 +17,16 @@ classifiers = [
 ]
 requires-python = ">=3.12"
 dependencies = [
-    "dpdumperlib >= 0.0.2",
-    "logicmin >= 0.4.0"
+    "dpdumperlib >= 0.0.2"
 ]
 
 [project.scripts]
-dpdumper = "dpdump2eqn.frontend:cli"
+dpdumper = "dpdump2tab.frontend:cli"
 
 [tool.setuptools.packages.find]
 where = ["src", "."]  # list of folders that contain the packages (["."] by default)
-include = ["dpdump2eqn*"]
+include = ["dpdump2tab*"]
 exclude = ["test*"]
 
 [project.urls]
-repository = "https://github.com/DuPAL-PAL-DUmper/dpdump2eqn"
+repository = "https://github.com/DuPAL-PAL-DUmper/dpdump2tab"

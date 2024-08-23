@@ -2,7 +2,7 @@
 
 import importlib.metadata
 
-__name__: str = 'dpdump2eqn'
+__name__: str = 'dpdump2tab'
 __version__: str = '0.0.0'
 
 try:
