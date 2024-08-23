@@ -60,8 +60,12 @@ def cli() -> int:
 
     _LOGGER.info('Loading the truth table')
     tt: logicmin.TT = build_truth_table(ic_definition, data)
+    
+    _LOGGER.info('Solving the truth table.')
+    sols: logicmin.MultiSol = tt.solve()
 
-    # TODO: Solve the equations and print the solutions
+    print(sols.printN(xnames=[f'i{pin}' for pin in reversed(ic_definition.address)],
+                      ynames=[f'o{pin}' for pin in reversed(ic_definition.data)]))
 
     _LOGGER.info('Quitting.')
     return 1 
