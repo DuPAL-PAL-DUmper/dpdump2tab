@@ -69,9 +69,11 @@ def cli() -> int:
         raise ValueError(f'Input file has {d_len} entries, but {addr_combs} were expected!')
 
     if args.invert:
+        _LOGGER.debug('Inversion of input data was requested!')
         data = [(~d & ((1 << len(ic_definition.data)) - 1)) for d in data]
 
     with open(args.outfile, 'wb') as outf:
+        _LOGGER.info(f'Writing output table to {args.outfile}')
         TTableTools.write_truth_table_header(ic_definition, outf)
         TTableTools.write_truth_table(ic_definition, data, outf)
 
